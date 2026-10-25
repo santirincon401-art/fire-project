@@ -1,4 +1,3 @@
-
 extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -12,7 +11,9 @@ extends CharacterBody2D
 var vida: int
 var jugador: CharacterBody2D
 var direccion: Vector2
-var puede_atacar: bool = true
+
+var jugador_en_area: bool = false
+var tiempo_desde_ultimo_ataque: float = 0.0
 
 
 func _ready() -> void:
@@ -26,14 +27,32 @@ func _ready() -> void:
 	if jugador == null:
 		print("No encontré al jugador")
 
+	# Conectamos las señales por código para asegurar su funcionamiento
+	if area:
+		if not area.body_entered.is_connected(_on_area_2d_body_entered):
+			area.body_entered.connect(_on_area_2d_body_entered)
+		if not area.body_exited.is_connected(_on_area_2d_body_exited):
+			area.body_exited.connect(_on_area_2d_body_exited)
 
-func _physics_process(_delta: float) -> void:
+
+func _physics_process(delta: float) -> void:
 	if not is_instance_valid(jugador):
 		return
 
+	# Movimiento hacia el jugador
 	direccion = global_position.direction_to(jugador.global_position)
 	velocity = direccion * velocidad
 	move_and_slide()
+
+	# GESTIÓN DEL DAÑO CONTINUO
+	if jugador_en_area:
+		# Acumulamos el tiempo que pasa frame a frame
+		tiempo_desde_ultimo_ataque += delta
+		
+		# Si ya pasó el tiempo necesario, atacamos de nuevo
+		if tiempo_desde_ultimo_ataque >= tiempo_entre_ataques:
+			_aplicar_danio_al_jugador()
+			tiempo_desde_ultimo_ataque = 0.0 # Reiniciamos el contador
 
 
 func recibir_danio(cantidad: int) -> void:
@@ -42,25 +61,28 @@ func recibir_danio(cantidad: int) -> void:
 	var tween = create_tween()
 	sprite.modulate = Color.CRIMSON
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.5)
-	
+
 	if vida <= 0:
 		queue_free()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("jugador"):
-		return
+	if body.is_in_group("jugador"):
+		jugador_en_area = true
+		
+		# Forzamos a que el primer golpe ocurra de inmediato al tocarlo
+		_aplicar_danio_al_jugador()
+		
+		# Reiniciamos el contador interno para que el siguiente golpe espere el tiempo exacto
+		tiempo_desde_ultimo_ataque = 0.0
 
-	if not puede_atacar:
-		return
 
-	if not body.has_method("recibir_danio"):
-		return
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("jugador"):
+		jugador_en_area = false
+		tiempo_desde_ultimo_ataque = 0.0
 
-	puede_atacar = false
-	body.recibir_danio(danio)
 
-	await get_tree().create_timer(tiempo_entre_ataques).timeout
-
-	if is_instance_valid(self):
-		puede_atacar = true
+func _aplicar_danio_al_jugador() -> void:
+	if is_instance_valid(jugador) and jugador.has_method("recibir_danio"):
+		jugador.recibir_danio(danio)

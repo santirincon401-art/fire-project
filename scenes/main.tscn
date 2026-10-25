@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dylws3j5ocm6t"]
+
+[ext_resource type="PackedScene" uid="uid://cntbrlvfikccl" path="res://Candle/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://3seyrdyven3t" path="res://enemys/enemy1/enemy1.tscn" id="2_0wfyh"]
+
+[node name="Node2D" type="Node2D" unique_id=1538831891 groups=["enemigos"]]
+
+[node name="Candle" parent="." unique_id=94849158 instance=ExtResource("1_o5qli")]
+position = Vector2(-2, 2)
+
+[node name="Node2D" parent="." unique_id=1876509346 instance=ExtResource("2_0wfyh")]
+position = Vector2(356, -155)
+
+[node name="Node2D2" parent="." unique_id=499622916 instance=ExtResource("2_0wfyh")]
+position = Vector2(414, 178)
+
+[node name="Node2D3" parent="." unique_id=1128592522 instance=ExtResource("2_0wfyh")]
+position = Vector2(-291, -207)
+
+[node name="Node2D4" parent="." unique_id=818777740 instance=ExtResource("2_0wfyh")]
+position = Vector2(-464, 275)

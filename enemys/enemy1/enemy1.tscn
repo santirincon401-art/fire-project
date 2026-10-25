@@ -43,7 +43,7 @@ animations = [{
 radius = 16.03122
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h4t55"]
-radius = 20.09975
+radius = 36.05551
 
 [node name="Node2D" type="CharacterBody2D" unique_id=1876509346]
 script = ExtResource("1_oso6n")
@@ -60,4 +60,9 @@ shape = SubResource("CircleShape2D_8w0r3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=243658499]
 shape = SubResource("CircleShape2D_h4t55")
 
+[node name="damageTimer" type="Timer" parent="." unique_id=875862925]
+autostart = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="damageTimer" to="." method="_on_damage_timer_timeout"]
