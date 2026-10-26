@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bucqa2yeoexvd" path="res://Candle/sprites/CandleThree-quarter2 viewAttack1.png" id="13_2k2hw"]
 [ext_resource type="Texture2D" uid="uid://ccp1k22g51xqt" path="res://Candle/sprites/CandleThree-quarter2 viewAttack2.png" id="14_p72a3"]
 [ext_resource type="Texture2D" uid="uid://c4v5xsxtx0a28" path="res://Candle/sprites/CandleSideviewLargeStab1.png" id="15_q781e"]
+[ext_resource type="Texture2D" uid="uid://dw50h7utpkxir" path="res://Candle/sprites/Rodar.png" id="15_vtm6x"]
 [ext_resource type="Texture2D" uid="uid://ctqa5kk6ibol6" path="res://Candle/sprites/CandleSideviewLargeStab2.png" id="16_v5c2p"]
 [ext_resource type="Texture2D" uid="uid://ctpoceciuvov1" path="res://Candle/sprites/CandleThree-quarter viewAttack1.png" id="17_jvu6o"]
 [ext_resource type="Texture2D" uid="uid://uitnf3vaagbd" path="res://Candle/sprites/CandleSideviewStab1.png" id="17_vtm6x"]
@@ -289,6 +290,46 @@ region = Rect2(256, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6x40q"]
 atlas = ExtResource("4_u8hsj")
 region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrirb"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l84u1"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ac8u"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w60go"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxadd"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64wx7"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30vjd"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px2oq"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ym7aa"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew8td"]
+atlas = ExtResource("15_vtm6x")
+region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mp0uc"]
 atlas = ExtResource("9_gxx3w")
@@ -929,6 +970,41 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_yrirb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l84u1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ac8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w60go")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxadd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64wx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30vjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px2oq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym7aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew8td")
+}],
+"loop": 1,
+"name": &"Roll",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_mp0uc")
 }, {
 "duration": 1.0,
@@ -1338,8 +1414,8 @@ height = 131.99934
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=12231269]
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_8w0r3")
-animation = &"SpinningAttack"
-frame_progress = 0.9913852
+animation = &"Roll"
+frame_progress = 0.6399912
 
 [node name="controlador" type="Node2D" parent="." unique_id=1169680575]
 script = ExtResource("11_rucp0")
@@ -1361,6 +1437,12 @@ offset_top = 20.0
 offset_right = 594.0
 offset_bottom = 60.0
 value = 100.0
+
+[node name="LabelCombo" type="Label" parent="CanvasLayer" unique_id=230734094]
+offset_left = 208.0
+offset_top = 60.0
+offset_right = 405.0
+offset_bottom = 83.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=52850677]
 
