@@ -8,6 +8,7 @@ extends Node2D
 @onready var player: CharacterBody2D = get_parent()
 @onready var sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
 @onready var hitbox: Area2D = player.get_node("Hitbox")
+@onready var SpinningHitbox: Area2D = player.get_node("SpinningHitbox")
 @onready var hurtbox: Area2D = player.get_node("Hurtbox")
 @onready var barra_vida: ProgressBar = player.get_node("CanvasLayer/ProgressBar")
 
@@ -39,7 +40,8 @@ enum States {
 	WALK,
 	ATTACK,
 	STAB,
-	LARGESTAB
+	LARGESTAB,
+	SPINNINGATTACK
 }
 
 var current_state: States = States.IDLE
@@ -62,8 +64,15 @@ var estocada_pendiente: bool = false
 
 # Evita golpear varias veces al mismo enemigo en un ataque.
 var enemigos_golpeados: Array[Node2D] = []
+var enemigos_golpeados_spin: Array[Node2D] = []
+@export var duracion_spin: float = 2.0
+@export var tiempo_hitbox_activa: float = 0.25
+@export var tiempo_hitbox_inactiva: float = 0.15
 
-
+var tiempo_spin: float = 0.0
+var tiempo_ciclo_spin: float = 0.0
+var spin_activo: bool = false
+var hitbox_spin_activa: bool = false
 # ==================================================
 # 5. INICIALIZACIÓN
 # ==================================================
@@ -86,8 +95,13 @@ func _ready() -> void:
 		sprite.animation_finished.connect(_al_terminar_animacion)
 
 	actualizar_animacion(Vector2.ZERO)
-
-
+	SpinningHitbox.set_deferred("monitoring", false)
+	if not SpinningHitbox.body_entered.is_connected(
+		_on_spinning_hitbox_body_entered
+	):
+		SpinningHitbox.body_entered.connect(
+		_on_spinning_hitbox_body_entered
+	)
 # ==================================================
 # 6. CONTROL PRINCIPAL
 # ==================================================
@@ -98,7 +112,7 @@ func _physics_process(delta: float) -> void:
 		"ui_left",
 		"ui_right",
 		"ui_up",
-			"ui_down"
+		"ui_down"
 	)
 
 	# Si está haciendo dash, controlar únicamente el dash.
@@ -131,6 +145,8 @@ func _physics_process(delta: float) -> void:
 
 		States.LARGESTAB:
 			procesar_ataque()
+		States.SPINNINGATTACK:
+			procesar_spin(delta)
 
 
 # ==================================================
@@ -146,7 +162,9 @@ func procesar_movimiento(direccion: Vector2) -> void:
 	if Input.is_action_just_pressed("LargeStab"):
 		iniciar_LargeStab(1)
 		return
-
+	if Input.is_action_just_pressed("Spin"):
+		iniciar_spin()
+		return
 	if direccion == Vector2.ZERO:
 		cambiar_estado(States.IDLE)
 	else:
@@ -539,3 +557,90 @@ func activar_invulnerabilidad() -> void:
 
 	invulnerable = false
 	print("Invulnerabilidad desactivada")
+
+
+func _on_spinning_hitbox_body_entered(body: Node2D) -> void:
+
+	# Solo hacer daño durante el giro.
+	if current_state != States.SPINNINGATTACK:
+		return
+
+	# Comprobar que sea un enemigo.
+	if not body.is_in_group("enemigos"):
+		return
+
+	# Evitar golpear al mismo enemigo dos veces.
+	if body in enemigos_golpeados_spin:
+		return
+
+	# Aplicar daño.
+	if body.has_method("recibir_danio"):
+		enemigos_golpeados_spin.append(body)
+		body.recibir_danio(danio)
+func iniciar_spin() -> void:
+
+	if not sprite.sprite_frames.has_animation("SpinningAttack"):
+		push_warning("No existe la animación: SpinningAttack")
+		return
+
+	ataque_en_curso = true
+	ataque_actual = 0
+
+	combo_pendiente = false
+	estocada_desbloqueada = false
+	estocada_pendiente = false
+
+	tiempo_spin = 0.0
+	tiempo_ciclo_spin = 0.0
+
+	spin_activo = true
+	hitbox_spin_activa = true
+
+	enemigos_golpeados_spin.clear()
+
+	cambiar_estado(States.SPINNINGATTACK)
+
+	hitbox.set_deferred("monitoring", false)
+	SpinningHitbox.set_deferred("monitoring", true)
+
+	sprite.play("SpinningAttack")
+func procesar_spin(delta: float) -> void:
+
+	tiempo_spin += delta
+	tiempo_ciclo_spin += delta
+
+	# Terminar el ataque cuando se agote la duración.
+	if tiempo_spin >= duracion_spin:
+		terminar_spin()
+		return
+
+	# Alternar entre hitbox activa e inactiva.
+	if hitbox_spin_activa:
+		if tiempo_ciclo_spin >= tiempo_hitbox_activa:
+			hitbox_spin_activa = false
+			tiempo_ciclo_spin = 0.0
+
+			SpinningHitbox.set_deferred("monitoring", false)
+
+	else:
+		if tiempo_ciclo_spin >= tiempo_hitbox_inactiva:
+			hitbox_spin_activa = true
+			tiempo_ciclo_spin = 0.0
+
+			enemigos_golpeados_spin.clear()
+			SpinningHitbox.set_deferred("monitoring", true)
+func terminar_spin() -> void:
+
+	spin_activo = false
+	hitbox_spin_activa = false
+	ataque_en_curso = false
+	ataque_actual = 0
+
+	SpinningHitbox.set_deferred("monitoring", false)
+
+	if player.velocity == Vector2.ZERO:
+		cambiar_estado(States.IDLE)
+		actualizar_animacion(Vector2.ZERO)
+	else:
+		cambiar_estado(States.WALK)
+		actualizar_animacion(player.velocity.normalized())

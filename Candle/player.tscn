@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://uitnf3vaagbd" path="res://Candle/sprites/CandleSideviewStab1.png" id="17_vtm6x"]
 [ext_resource type="Texture2D" uid="uid://dexw7wtes3lrh" path="res://Candle/sprites/CandleThree-quarter viewAttack2.png" id="18_4naji"]
 [ext_resource type="Texture2D" uid="uid://dgrlypumtlt1e" path="res://Candle/sprites/CandleThree-quarter2 viewLargeStab1.png" id="22_6vnwg"]
+[ext_resource type="Texture2D" uid="uid://c8w4ixnkni5w6" path="res://Candle/sprites/CandleSpinningAttack.png" id="22_v5c2p"]
 [ext_resource type="Texture2D" uid="uid://ct440jd5pw6ae" path="res://Candle/sprites/CandleThree-quarter2 viewLargeStab2.png" id="23_cfxw7"]
 [ext_resource type="Texture2D" uid="uid://tgm8dd1kgn4r" path="res://Candle/sprites/CandleThree-quarter2 viewStab1.png" id="24_tw5k4"]
 [ext_resource type="Texture2D" uid="uid://rdmo2iqb6aet" path="res://Candle/sprites/CandleThree-quarterviewLargeStab1.png" id="29_k6dul"]
@@ -403,6 +404,22 @@ region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y1333"]
 atlas = ExtResource("6_7x212")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pprf1"]
+atlas = ExtResource("22_v5c2p")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48se1"]
+atlas = ExtResource("22_v5c2p")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiy8a"]
+atlas = ExtResource("22_v5c2p")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii6ea"]
+atlas = ExtResource("22_v5c2p")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5qxye"]
@@ -1034,6 +1051,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pprf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48se1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yiy8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6ea")
+}],
+"loop": 1,
+"name": &"SpinningAttack",
+"speed": 17.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5qxye")
 }, {
 "duration": 1.0,
@@ -1293,16 +1327,19 @@ height = 62.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8w0r3"]
 radius = 23.769728
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7mgy"]
-radius = 14.0
-height = 42.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4e15o"]
+radius = 45.002937
+height = 131.99934
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8w0r3"]
 
 [node name="Candle" type="CharacterBody2D" unique_id=94849158 groups=["jugador"]]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=12231269]
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_8w0r3")
-animation = &"Three-quarter2ViewStab1"
+animation = &"SpinningAttack"
+frame_progress = 0.9913852
 
 [node name="controlador" type="Node2D" parent="." unique_id=1169680575]
 script = ExtResource("11_rucp0")
@@ -1332,8 +1369,16 @@ value = 100.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1226691503]
 shape = SubResource("CircleShape2D_8w0r3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1695057351]
-shape = SubResource("CapsuleShape2D_w7mgy")
+[node name="SpinningHitbox" type="Area2D" parent="." unique_id=1931055901]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinningHitbox" unique_id=411385319]
+position = Vector2(-3, -11)
+rotation = -1.567633
+shape = SubResource("CapsuleShape2D_4e15o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=378254437]
+shape = SubResource("CapsuleShape2D_8w0r3")
 
 [connection signal="body_entered" from="Hitbox" to="controlador" method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="controlador" method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="SpinningHitbox" to="controlador" method="_on_spinning_hitbox_body_entered"]
