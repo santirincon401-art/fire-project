@@ -161,10 +161,12 @@ func _physics_process(delta: float) -> void:
 	match current_state:
 		States.IDLE, States.WALK:
 			procesar_movimiento(direccion)
-		States.ATTACK, States.STAB, States.LARGESTAB:
+		States.ATTACK, States.STAB:
 			procesar_ataque()
 		States.SPINNINGATTACK:
 			procesar_spin(delta)
+		States.LARGESTAB:
+			procesar_dash(delta)
 
 
 # ==================================================
@@ -383,7 +385,8 @@ func iniciar_ataque(numero: int) -> void:
 func iniciar_LargeStab(numero: int) -> void:
 	var dir_mouse = obtener_direccion_hacia_mouse()
 	var animacion: String = obtener_vista_desde_vector(dir_mouse) + "LargeStab" + str(numero)
-	
+	haciendo_dash = true
+	tiempo_dash = 0.0
 	if not sprite.sprite_frames.has_animation(animacion):
 		return
 
