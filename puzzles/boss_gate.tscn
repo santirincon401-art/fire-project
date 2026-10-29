@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://puzzles/puzzle_door.gd" id="1_door"]
+[ext_resource type="Texture2D" path="res://assets/generated/dungeon_door.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://puzzles/boss_portal.tscn" id="3_portal"]
+
+[sub_resource type="RectangleShape2D" id="ShapeL"]
+size = Vector2(24, 240)
+
+[sub_resource type="RectangleShape2D" id="ShapeR"]
+size = Vector2(24, 240)
+
+[sub_resource type="RectangleShape2D" id="ShapeB"]
+size = Vector2(328, 24)
+
+[sub_resource type="RectangleShape2D" id="ShapeTL"]
+size = Vector2(80, 24)
+
+[sub_resource type="RectangleShape2D" id="ShapeTR"]
+size = Vector2(80, 24)
+
+[node name="BossGate" type="Node2D"]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="WallL" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-152, 404)
+shape = SubResource("ShapeL")
+
+[node name="WallR" type="CollisionShape2D" parent="Walls"]
+position = Vector2(152, 404)
+shape = SubResource("ShapeR")
+
+[node name="WallB" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 524)
+shape = SubResource("ShapeB")
+
+[node name="WallTL" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-112, 284)
+shape = SubResource("ShapeTL")
+
+[node name="WallTR" type="CollisionShape2D" parent="Walls"]
+position = Vector2(112, 284)
+shape = SubResource("ShapeTR")
+
+[node name="VisL" type="Polygon2D" parent="Walls"]
+position = Vector2(-152, 404)
+color = Color(0.18, 0.17, 0.2, 1)
+polygon = PackedVector2Array(-12, -120, 12, -120, 12, 120, -12, 120)
+
+[node name="VisR" type="Polygon2D" parent="Walls"]
+position = Vector2(152, 404)
+color = Color(0.18, 0.17, 0.2, 1)
+polygon = PackedVector2Array(-12, -120, 12, -120, 12, 120, -12, 120)
+
+[node name="VisB" type="Polygon2D" parent="Walls"]
+position = Vector2(0, 524)
+color = Color(0.18, 0.17, 0.2, 1)
+polygon = PackedVector2Array(-164, -12, 164, -12, 164, 12, -164, 12)
+
+[node name="VisTL" type="Polygon2D" parent="Walls"]
+position = Vector2(-112, 284)
+color = Color(0.18, 0.17, 0.2, 1)
+polygon = PackedVector2Array(-40, -12, 40, -12, 40, 12, -40, 12)
+
+[node name="VisTR" type="Polygon2D" parent="Walls"]
+position = Vector2(112, 284)
+color = Color(0.18, 0.17, 0.2, 1)
+polygon = PackedVector2Array(-40, -12, 40, -12, 40, 12, -40, 12)
+
+[node name="Floor" type="Polygon2D" parent="."]
+color = Color(0.1, 0.09, 0.12, 1)
+polygon = PackedVector2Array(-140, 296, 140, 296, 140, 512, -140, 512)
+
+[node name="Emblem" type="Polygon2D" parent="."]
+position = Vector2(0, 420)
+color = Color(0.28, 0.2, 0.42, 1)
+polygon = PackedVector2Array(0, -54, 46, 0, 0, 54, -46, 0)
+
+[node name="SealedGate" type="Node2D" parent="." groups=["puzzle_doors"]]
+position = Vector2(0, 284)
+script = ExtResource("1_door")
+door_w = 144.0
+door_h = 32.0
+required_plates = 0
+needs_key = false
+door_name = "The Sealed Gate"
+
+[node name="Sprite2D" type="Sprite2D" parent="SealedGate"]
+texture = ExtResource("2_tex")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SealedGate"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SealedGate/StaticBody2D"]
+
+[node name="BossPortal" parent="." instance=ExtResource("3_portal")]
+position = Vector2(0, 400)

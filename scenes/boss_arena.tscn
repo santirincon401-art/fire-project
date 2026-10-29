@@ -1,0 +1,129 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Candle/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://enemys/boss/boss.tscn" id="2_boss"]
+[ext_resource type="Script" path="res://ui/boss_hud.gd" id="3_hud"]
+[ext_resource type="PackedScene" path="res://ui/death_screen.tscn" id="4_death"]
+[ext_resource type="PackedScene" path="res://ui/pause_menu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" path="res://ui/victory_screen.tscn" id="6_victory"]
+
+[sub_resource type="RectangleShape2D" id="ShapeTop"]
+size = Vector2(1440, 40)
+
+[sub_resource type="RectangleShape2D" id="ShapeBottom"]
+size = Vector2(1440, 40)
+
+[sub_resource type="RectangleShape2D" id="ShapeSide"]
+size = Vector2(40, 920)
+
+[node name="BossArena" type="Node2D"]
+
+[node name="Atmosphere" type="CanvasModulate" parent="."]
+color = Color(0.6, 0.52, 0.72, 1)
+
+[node name="Floor" type="Polygon2D" parent="."]
+color = Color(0.07, 0.06, 0.1, 1)
+polygon = PackedVector2Array(-700, -450, 700, -450, 700, 450, -700, 450)
+
+[node name="Emblem" type="Polygon2D" parent="."]
+color = Color(0.16, 0.1, 0.26, 1)
+polygon = PackedVector2Array(0, -300, 260, 0, 0, 300, -260, 0)
+
+[node name="EmblemCore" type="Polygon2D" parent="."]
+color = Color(0.28, 0.16, 0.44, 1)
+polygon = PackedVector2Array(0, -120, 104, 0, 0, 120, -104, 0)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -460)
+shape = SubResource("ShapeTop")
+
+[node name="Bottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 460)
+shape = SubResource("ShapeBottom")
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-720, 0)
+shape = SubResource("ShapeSide")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(720, 0)
+shape = SubResource("ShapeSide")
+
+[node name="WallTop" type="Polygon2D" parent="Walls"]
+position = Vector2(0, -460)
+color = Color(0.13, 0.11, 0.17, 1)
+polygon = PackedVector2Array(-720, -20, 720, -20, 720, 20, -720, 20)
+
+[node name="WallBottom" type="Polygon2D" parent="Walls"]
+position = Vector2(0, 460)
+color = Color(0.13, 0.11, 0.17, 1)
+polygon = PackedVector2Array(-720, -20, 720, -20, 720, 20, -720, 20)
+
+[node name="WallLeft" type="Polygon2D" parent="Walls"]
+position = Vector2(-720, 0)
+color = Color(0.13, 0.11, 0.17, 1)
+polygon = PackedVector2Array(-20, -460, 20, -460, 20, 460, -20, 460)
+
+[node name="WallRight" type="Polygon2D" parent="Walls"]
+position = Vector2(720, 0)
+color = Color(0.13, 0.11, 0.17, 1)
+polygon = PackedVector2Array(-20, -460, 20, -460, 20, 460, -20, 460)
+
+[node name="Candle" parent="." instance=ExtResource("1_player")]
+position = Vector2(0, 300)
+
+[node name="Boss" parent="." instance=ExtResource("2_boss")]
+position = Vector2(0, -200)
+
+[node name="BossHUD" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("3_hud")
+
+[node name="Root" type="Control" parent="BossHUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TopBar" type="VBoxContainer" parent="BossHUD/Root"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_top = 14.0
+offset_bottom = 92.0
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="BossHUD/Root/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.62, 1.2, 1)
+theme_override_font_sizes/font_size = 28
+text = "The Guardian of the Gate"
+horizontal_alignment = 1
+
+[node name="Health" type="ProgressBar" parent="BossHUD/Root/TopBar"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+modulate = Color(0.8, 0.35, 1.15, 1)
+value = 36.0
+
+[node name="Intro" type="Label" parent="BossHUD/Root"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = -120.0
+theme_override_colors/font_color = Color(0.9, 0.75, 1.1, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="DeathScreen" parent="." instance=ExtResource("4_death")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_pause")]
+
+[node name="VictoryScreen" parent="." instance=ExtResource("6_victory")]

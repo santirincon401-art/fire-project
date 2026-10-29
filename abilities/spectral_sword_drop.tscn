@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://abilities/spectral_sword_drop.gd" id="1_drop"]
+[ext_resource type="Texture2D" path="res://assets/generated/spectral_sword.png" id="2_tx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_drop"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 0,
+"name": &"collect",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_drop"]
+radius = 16.0
+
+[node name="SpectralSwordDrop" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_drop")
+
+[node name="Placeholder" type="Node2D" parent="."]
+visible = false
+
+[node name="Gem" type="Polygon2D" parent="Placeholder"]
+color = Color(0.45, 0.85, 1, 0.95)
+polygon = PackedVector2Array(0, -14, 10, 0, 0, 14, -10, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.75, 0.95, 1, 1)
+sprite_frames = SubResource("SpriteFrames_drop")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_drop")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://enemys/spiral_shooter/spiral_bullet.gd" id="1_bullet"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 6.0
+
+[node name="SpiralBullet" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_bullet")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0.55, 0.18, 1)
+polygon = PackedVector2Array(6, 0, 4.24, 4.24, 0, 6, -4.24, 4.24, -6, 0, -4.24, -4.24, 0, -6, 4.24, -4.24)
+
+[node name="Core" type="Polygon2D" parent="."]
+color = Color(1, 0.92, 0.45, 1)
+polygon = PackedVector2Array(2.5, 0, 1.77, 1.77, 0, 2.5, -1.77, 1.77, -2.5, 0, -1.77, -1.77, 0, -2.5, 1.77, -1.77)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hit")

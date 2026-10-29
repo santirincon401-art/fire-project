@@ -38,6 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://rdmo2iqb6aet" path="res://Candle/sprites/CandleThree-quarterviewLargeStab1.png" id="29_k6dul"]
 [ext_resource type="Texture2D" uid="uid://8752qnv3rcyq" path="res://Candle/sprites/CandleThree-quarter viewLargeStab2.png" id="30_y1333"]
 [ext_resource type="Texture2D" uid="uid://c7rt1kttjsymj" path="res://Candle/sprites/CandleThree-quarterviewStab1.png" id="31_y7stf"]
+[ext_resource type="Script" path="res://Candle/hud.gd" id="32_hudgd"]
+[ext_resource type="PackedScene" path="res://items/spectral_swords/spectral_swords.tscn" id="33_swords"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qdn45"]
 atlas = ExtResource("1_o4wnt")
@@ -1366,17 +1368,19 @@ radius = 45.002937
 height = 131.99934
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8w0r3"]
+height = 68.0
 
 [node name="Candle" type="CharacterBody2D" unique_id=94849158 groups=["jugador"]]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=12231269]
 position = Vector2(-1, -8)
 sprite_frames = SubResource("SpriteFrames_8w0r3")
-animation = &"Roll"
-frame_progress = 0.9137232
+animation = &"Three-quarterViewIdle"
 
 [node name="controlador" type="Node2D" parent="." unique_id=1169680575]
 script = ExtResource("11_rucp0")
+
+[node name="SpectralSwords" parent="." instance=ExtResource("33_swords")]
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=961106113]
 
@@ -1386,6 +1390,7 @@ shape = SubResource("CapsuleShape2D_h4t55")
 [node name="vida" type="Node2D" parent="." unique_id=1383212035]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322867285]
+script = ExtResource("32_hudgd")
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=1259871967]
 modulate = Color(0.8030442, 0.5370987, 0, 1)
@@ -1401,6 +1406,23 @@ offset_left = 208.0
 offset_top = 60.0
 offset_right = 405.0
 offset_bottom = 83.0
+
+[node name="Energia" type="ProgressBar" parent="CanvasLayer" unique_id=1900223344]
+modulate = Color(0.235, 0.62, 0.909, 1)
+self_modulate = Color(0.55, 0.85, 0.95, 1)
+offset_left = 20.0
+offset_top = 66.0
+offset_right = 594.0
+offset_bottom = 96.0
+value = 100.0
+
+[node name="Mensaje" type="Label" parent="CanvasLayer" unique_id=1900334455]
+modulate = Color(1, 1, 1, 0)
+offset_left = 300.0
+offset_top = 108.0
+offset_right = 900.0
+offset_bottom = 140.0
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=52850677]
 

@@ -17,6 +17,12 @@ enum Estado { SIGILO, EMBOSCADA, ATAQUE, RECTIFICACION }
 @export var distancia_emboscada: float = 120.0
 @export var opacidad_sigilo: float = 0.2
 
+@export_category("Animaciones (opcionales)")
+@export var anim_idle: StringName = &"default"
+@export var anim_attack: StringName = &"attack"
+@export var anim_hurt: StringName = &"hurt"
+@export var anim_death: StringName = &"death"
+
 var estado_actual: Estado = Estado.SIGILO
 var vida: int
 var jugador: CharacterBody2D
@@ -25,12 +31,13 @@ var direccion: Vector2 = Vector2.ZERO
 var jugador_en_area: bool = false
 var tiempo_desde_ultimo_ataque: float = 0.0
 var en_cd_emboscada: bool = false
+var _muerto: bool = false
 
 
 func _ready() -> void:
 	add_to_group("enemigos")
 	vida = vida_maxima
-	sprite.play("default")
+	_play_anim(anim_idle)
 	
 	# Mantenemos el camuflaje inicial
 	sprite.modulate.a = opacidad_sigilo
@@ -45,6 +52,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _muerto:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if not is_instance_valid(jugador):
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -128,6 +140,8 @@ func _actualizar_orientacion() -> void:
 
 
 func recibir_danio(cantidad: int) -> void:
+	if _muerto:
+		return
 	vida = clampi(vida - cantidad, 0, vida_maxima)
 
 	# Revela al enemigo momentáneamente si es golpeado
@@ -137,7 +151,9 @@ func recibir_danio(cantidad: int) -> void:
 	tween.tween_property(sprite, "modulate", Color(1, 1, 1, opacidad_sigilo if estado_actual == Estado.SIGILO else 1.0), 0.3)
 
 	if vida <= 0:
-		queue_free()
+		_morir()
+	elif _has_anim(anim_hurt):
+		_play_anim(anim_hurt)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -154,5 +170,41 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 func _aplicar_danio_al_jugador() -> void:
+	if _muerto:
+		return
 	if is_instance_valid(jugador) and jugador.has_method("recibir_danio"):
 		jugador.recibir_danio(danio)
+
+
+## Death plays the clip (if any) before removing the node, and locks out
+## attacks/movement so a dying enemy can never keep hurting the player.
+func _morir() -> void:
+	if _muerto:
+		return
+	_muerto = true
+	velocity = Vector2.ZERO
+	collision_layer = 0
+	collision_mask = 0
+	if area:
+		area.set_deferred("monitoring", false)
+	if _has_anim(anim_death):
+		_play_anim(anim_death)
+		var timer := get_tree().create_timer(0.7)
+		timer.timeout.connect(queue_free)
+	else:
+		queue_free()
+
+
+func _play_anim(anim: StringName) -> void:
+	if sprite == null or not _has_anim(anim):
+		return
+	if sprite.animation != anim or not sprite.is_playing():
+		sprite.play(anim)
+
+
+func _has_anim(anim: StringName) -> bool:
+	if sprite == null or sprite.sprite_frames == null:
+		return false
+	if not sprite.sprite_frames.has_animation(anim):
+		return false
+	return sprite.sprite_frames.get_frame_count(anim) > 0

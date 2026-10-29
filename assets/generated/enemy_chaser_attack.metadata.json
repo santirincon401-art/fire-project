@@ -1,0 +1,52 @@
+{
+	"animation_name": "swinging_a_rusted_sword_attack",
+	"animation_style": "",
+	"animation_type": "swinging a rusted sword attack",
+	"columns": 5,
+	"directions": [],
+	"frame_count": 5,
+	"frame_height": 48,
+	"frame_paths": [],
+	"frame_regions": [
+		{
+			"h": 48,
+			"w": 48,
+			"x": 0,
+			"y": 0
+		},
+		{
+			"h": 48,
+			"w": 48,
+			"x": 48,
+			"y": 0
+		},
+		{
+			"h": 48,
+			"w": 48,
+			"x": 96,
+			"y": 0
+		},
+		{
+			"h": 48,
+			"w": 48,
+			"x": 144,
+			"y": 0
+		},
+		{
+			"h": 48,
+			"w": 48,
+			"x": 192,
+			"y": 0
+		}
+	],
+	"frame_width": 48,
+	"name": "enemy_chaser_attack",
+	"prompt": "swinging a rusted sword attack",
+	"rows": 1,
+	"source_image": "res://assets/generated/enemy_chaser_idle.png",
+	"source_tool": "animate_sprite",
+	"spritesheet_height": 48,
+	"spritesheet_path": "res://assets/generated/enemy_chaser_attack.png",
+	"spritesheet_width": 240,
+	"type": "animation"
+}

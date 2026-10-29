@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://cbuiou6gisenc"]
+
+[ext_resource type="Script" uid="uid://chxrmr6uehk3s" path="res://enemys/swarmling/swarmling.gd" id="1_swarm"]
+[ext_resource type="Texture2D" path="res://assets/generated/enemy_swarmling_attack.png" id="2_htjqn"]
+[ext_resource type="Texture2D" uid="uid://2uw7wf6hbgx4" path="res://assets/generated/enemy_swarmling_death.png" id="3_62ao4"]
+[ext_resource type="Texture2D" uid="uid://ddp0qh6jsm2ae" path="res://assets/generated/enemy_swarmling_idle.png" id="4_lfxcy"]
+[ext_resource type="Texture2D" uid="uid://cugw2iaekgp2a" path="res://assets/generated/enemy_swarmling_walk.png" id="5_tmbag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb1nd"]
+atlas = ExtResource("2_htjqn")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5sar"]
+atlas = ExtResource("2_htjqn")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g8jm"]
+atlas = ExtResource("2_htjqn")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if1ia"]
+atlas = ExtResource("2_htjqn")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4vfd"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swib8"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1ks2"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1vw5"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irk0d"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pp3g"]
+atlas = ExtResource("3_62ao4")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeyp2"]
+atlas = ExtResource("5_tmbag")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab6ih"]
+atlas = ExtResource("5_tmbag")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5ewf"]
+atlas = ExtResource("5_tmbag")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n4b2"]
+atlas = ExtResource("5_tmbag")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_swarm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb1nd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5sar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g8jm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if1ia")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4vfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swib8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1ks2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1vw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irk0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pp3g")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_lfxcy")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_lfxcy")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eeyp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab6ih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5ewf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n4b2")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_swarm"]
+radius = 12.0
+
+[node name="Swarmling" type="CharacterBody2D" unique_id=55774033 groups=["enemigos"]]
+script = ExtResource("1_swarm")
+vida_maxima = 2
+danio = 6
+velocidad = 150.0
+distancia_ataque = 34.0
+tiempo_entre_ataques = 0.7
+
+[node name="Placeholder" type="Node2D" parent="." unique_id=543138480]
+
+[node name="Body" type="Polygon2D" parent="Placeholder" unique_id=1116220655]
+color = Color(0.36, 0.72, 0.28, 1)
+polygon = PackedVector2Array(0, -12, 12, 0, 0, 12, -12, 0)
+
+[node name="Core" type="Polygon2D" parent="Placeholder" unique_id=1791849424]
+color = Color(0.78, 1, 0.55, 1)
+polygon = PackedVector2Array(0, -5, 5, 0, 0, 5, -5, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=958275098]
+sprite_frames = SubResource("SpriteFrames_swarm")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=840796048]
+shape = SubResource("CircleShape2D_swarm")

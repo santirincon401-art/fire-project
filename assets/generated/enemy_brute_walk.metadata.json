@@ -1,0 +1,58 @@
+{
+	"animation_name": "heavy_lumbering_walk",
+	"animation_style": "",
+	"animation_type": "heavy lumbering walk",
+	"columns": 6,
+	"directions": [],
+	"frame_count": 6,
+	"frame_height": 64,
+	"frame_paths": [],
+	"frame_regions": [
+		{
+			"h": 64,
+			"w": 64,
+			"x": 0,
+			"y": 0
+		},
+		{
+			"h": 64,
+			"w": 64,
+			"x": 64,
+			"y": 0
+		},
+		{
+			"h": 64,
+			"w": 64,
+			"x": 128,
+			"y": 0
+		},
+		{
+			"h": 64,
+			"w": 64,
+			"x": 192,
+			"y": 0
+		},
+		{
+			"h": 64,
+			"w": 64,
+			"x": 256,
+			"y": 0
+		},
+		{
+			"h": 64,
+			"w": 64,
+			"x": 320,
+			"y": 0
+		}
+	],
+	"frame_width": 64,
+	"name": "enemy_brute_walk",
+	"prompt": "heavy lumbering walk",
+	"rows": 1,
+	"source_image": "res://assets/generated/enemy_brute_idle.png",
+	"source_tool": "animate_sprite",
+	"spritesheet_height": 64,
+	"spritesheet_path": "res://assets/generated/enemy_brute_walk.png",
+	"spritesheet_width": 384,
+	"type": "animation"
+}

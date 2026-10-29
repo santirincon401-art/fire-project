@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://puzzles/rune_inscription.gd" id="1_insc"]
+
+[node name="RuneInscription" type="Node2D" groups=["rune_inscription"]]
+script = ExtResource("1_insc")
+
+[node name="Slab" type="Polygon2D" parent="."]
+color = Color(0.15, 0.13, 0.12, 0.95)
+polygon = PackedVector2Array(-96, -38, 96, -38, 96, 38, -96, 38)
+
+[node name="Border" type="Polygon2D" parent="."]
+color = Color(0.36, 0.3, 0.2, 1)
+polygon = PackedVector2Array(-100, -42, 100, -42, 100, -34, -100, -34)

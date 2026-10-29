@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://enemys/boss/boss_bullet.gd" id="1_bbullet"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbullet"]
+radius = 7.0
+
+[node name="BossBullet" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_bbullet")
+
+[node name="Glow" type="Polygon2D" parent="."]
+color = Color(0.55, 0.25, 1.1, 0.5)
+polygon = PackedVector2Array(0, -11, 6, -6, 11, 0, 6, 6, 0, 11, -6, 6, -11, 0, -6, -6)
+
+[node name="Core" type="Polygon2D" parent="."]
+color = Color(0.9, 0.65, 1.6, 1)
+polygon = PackedVector2Array(0, -6, 5, 0, 0, 6, -5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bbullet")

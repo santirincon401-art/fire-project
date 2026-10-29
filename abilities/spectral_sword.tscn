@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://abilities/spectral_sword.gd" id="1_sw"]
+[ext_resource type="Texture2D" path="res://assets/generated/spectral_sword.png" id="2_tx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sword"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 0,
+"name": &"spawn",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 1,
+"name": &"flying",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tx")
+}],
+"loop": 0,
+"name": &"disappear",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 10.0
+
+[node name="SpectralSword" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_sw")
+
+[node name="Placeholder" type="Node2D" parent="."]
+visible = false
+
+[node name="Blade" type="Polygon2D" parent="Placeholder"]
+color = Color(0.55, 0.85, 1, 0.92)
+polygon = PackedVector2Array(0, -16, 4, -4, 3, 14, 0, 18, -3, 14, -4, -4)
+
+[node name="Glow" type="Polygon2D" parent="Placeholder"]
+color = Color(0.35, 0.7, 1, 0.35)
+polygon = PackedVector2Array(0, -20, 7, -4, 5, 16, 0, 22, -5, 16, -7, -4)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.7, 0.9, 1, 0.95)
+sprite_frames = SubResource("SpriteFrames_sword")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hit")

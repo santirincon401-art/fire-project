@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://puzzles/reset_pedestal.gd" id="1_reset"]
+[ext_resource type="Texture2D" path="res://assets/generated/dungeon_plate.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_reset"]
+radius = 26.0
+
+[node name="ResetPedestal" type="Area2D" groups=["reset_pedestals"]]
+script = ExtResource("1_reset")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.9, 0.6, 0.6, 1)
+texture = ExtResource("2_tex")
+
+[node name="Glyph" type="Polygon2D" parent="."]
+color = Color(1.2, 0.4, 0.4, 1)
+polygon = PackedVector2Array(0, -9, 9, 0, 0, 9, -9, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_reset")

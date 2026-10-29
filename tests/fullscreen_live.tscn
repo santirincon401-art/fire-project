@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/fullscreen_live.gd" id="1_flive"]
+
+[node name="FullscreenLive" type="Node"]
+script = ExtResource("1_flive")

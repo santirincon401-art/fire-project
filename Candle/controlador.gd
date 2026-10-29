@@ -1,5 +1,9 @@
 extends Node2D
 
+## Emitted exactly once when Candle's health reaches zero. The DeathScreen
+## listens to this to raise the "YOU DIED" overlay.
+signal murio
+
 # ==================================================
 # 1. REFERENCIAS A LOS NODOS
 # ==================================================
@@ -11,8 +15,7 @@ extends Node2D
 @onready var hurtbox: Area2D = player.get_node("Hurtbox")
 @onready var barra_vida: ProgressBar = player.get_node("CanvasLayer/ProgressBar")
 @onready var label_combo: Label = player.get_node_or_null("CanvasLayer/LabelCombo")
-
-
+@onready var barra_energia: ProgressBar = player.get_node_or_null("CanvasLayer/Energia")
 # ==================================================
 # 2. CONFIGURACIÓN DEL JUGADOR
 # ==================================================
@@ -22,11 +25,38 @@ extends Node2D
 @export var distancia_ataque: float = 35.0
 @export var vida_maxima: int = 100
 
-# Variables de Dash
+# --------------------------------------------------
+# Energía (Energy): resource spent by the special abilities on Q and R.
+# Tune all values here.
+# --------------------------------------------------
+@export_category("Energía")
+## Maximum Energy the player can hold.
+@export var energia_maxima: float = 100.0
+## Energy the player starts with.
+@export var energia_inicial: float = 100.0
+## Energy regenerated per second once regeneration starts.
+@export var regeneracion_energia: float = 14.0
+## Seconds to wait after spending Energy before it regenerates again.
+@export var retraso_regeneracion: float = 1.5
+## Energy cost of the LargeStab dash, bound to Q.
+@export var costo_energia_q: float = 25.0
+## Energy cost of the Spin attack, bound to R.
+@export var costo_energia_r: float = 35.0
+
+var energia_actual: float = 100.0
+var _tiempo_sin_gastar: float = 0.0
+# Variables de Dash (LargeStab)
 var haciendo_dash: bool = false
 var tiempo_dash: float = 0.0
-var velocidad_dash: float = 800.0
-var duracion_dash: float = 0.2
+var velocidad_dash: float = 650.0
+var duracion_dash: float = 0.18
+
+# Impulso corto de la estocada (Stab)
+var haciendo_impulso_stab: bool = false
+var tiempo_impulso_stab: float = 0.0
+var velocidad_impulso_stab: float = 360.0
+var duracion_impulso_stab: float = 0.14
+var direccion_impulso_stab: Vector2 = Vector2.ZERO
 
 # Variables de Rodar (Sostenido con inercia y derrape)
 var haciendo_rodar: bool = false
@@ -36,6 +66,8 @@ var inercia_rodar: Vector2 = Vector2.ZERO
 
 var vida_actual: int
 var invulnerable: bool = false
+## True once Candle has died; blocks input, attacks and further damage.
+var _muerto: bool = false
 
 
 # ==================================================
@@ -98,7 +130,9 @@ var hitbox_spin_activa: bool = false
 func _ready() -> void:
 	player.add_to_group("jugador")
 	vida_actual = vida_maxima
+	energia_actual = clampf(energia_inicial, 0.0, energia_maxima)
 	actualizar_barra_vida()
+	actualizar_barra_energia()
 
 	hitbox.set_deferred("monitoring", false)
 
@@ -123,6 +157,16 @@ func _ready() -> void:
 # ==================================================
 
 func _physics_process(delta: float) -> void:
+
+	# Una vez muerto el jugador deja de responder por completo (movimiento y
+	# ataques), hasta que la pantalla de muerte recargue el nivel.
+	if _muerto:
+		player.velocity = Vector2.ZERO
+		player.move_and_slide()
+		return
+
+	# Regenera energía aunque estemos realizando otra acción.
+	procesar_energia(delta)
 
 	# Decaimiento del combo por tiempo sin golpear
 	if contador_combo > 0:
@@ -155,8 +199,14 @@ func _physics_process(delta: float) -> void:
 
 	# Multiplicador de velocidad si estamos en modo frenesí (combo > 5)
 	var multiplicador_velocidad = 1.25 if modo_frenesi else 1.0
-	player.velocity = direccion * velocidad * multiplicador_velocidad
-	player.move_and_slide()
+
+	# Durante la estocada usamos su propio impulso; en otros casos,
+	# el movimiento normal sigue funcionando.
+	if haciendo_impulso_stab:
+		procesar_impulso_stab(delta)
+	else:
+		player.velocity = direccion * velocidad * multiplicador_velocidad
+		player.move_and_slide()
 
 	match current_state:
 		States.IDLE, States.WALK:
@@ -178,7 +228,6 @@ func procesar_movimiento(direccion: Vector2) -> void:
 	if Input.is_action_just_pressed("Attack"):
 		iniciar_ataque(1)
 		return
-
 	if Input.is_action_just_pressed("LargeStab"):
 		iniciar_LargeStab(1)
 		return
@@ -201,8 +250,8 @@ func procesar_ataque() -> void:
 			combo_pendiente = true
 
 	if estocada_desbloqueada and Input.is_action_just_pressed("Stab"):
-		estocada_pendiente = true
-
+		iniciar_stab()
+		
 
 # ==================================================
 # 9. MECÁNICA DE RODAR SOSTENIDO (DERRAPE CONTINUO)
@@ -255,6 +304,36 @@ func procesar_rodar(delta: float) -> void:
 # ==================================================
 # 10. DASH
 # ==================================================
+func iniciar_impulso_stab() -> void:
+	haciendo_impulso_stab = true
+	tiempo_impulso_stab = 0.0
+	direccion_impulso_stab = direccion_ataque.normalized()
+
+
+func procesar_impulso_stab(delta: float) -> void:
+	tiempo_impulso_stab += delta
+
+	var progreso: float = clampf(
+		tiempo_impulso_stab / duracion_impulso_stab,
+		0.0,
+		1.0
+	)
+
+	# El impulso pierde velocidad gradualmente para que no se detenga en seco.
+	var velocidad_actual: float = lerpf(
+		velocidad_impulso_stab,
+		0.0,
+		progreso
+	)
+
+	player.velocity = direccion_impulso_stab * velocidad_actual
+	player.move_and_slide()
+
+	if tiempo_impulso_stab >= duracion_impulso_stab:
+		haciendo_impulso_stab = false
+		tiempo_impulso_stab = 0.0
+		player.velocity = Vector2.ZERO
+
 
 func procesar_dash(delta: float) -> void:
 	tiempo_dash += delta
@@ -265,8 +344,11 @@ func procesar_dash(delta: float) -> void:
 		haciendo_dash = false
 		tiempo_dash = 0.0
 		player.velocity = Vector2.ZERO
+		hitbox.set_deferred("monitoring", false)
 		activar_invulnerabilidad()
-		current_state = States.WALK
+		ataque_en_curso = false
+		cambiar_estado(States.IDLE)
+		actualizar_animacion(Vector2.ZERO)
 
 
 # ==================================================
@@ -280,19 +362,20 @@ func cambiar_estado(nuevo_estado: States) -> void:
 
 
 func recibir_danio(cantidad: int) -> void:
-	if vida_actual <= 0:
+	if _muerto or vida_actual <= 0:
 		return
-
 	vida_actual = clampi(vida_actual - cantidad, 0, vida_maxima)
 	actualizar_barra_vida()
 	romper_combo()
 
 	if vida_actual == 0:
+		_muerto = true
 		print("¡Candle ha muerto!")
+		murio.emit()
 
 
 func curar(cantidad: int) -> void:
-	if vida_actual <= 0:
+	if _muerto or vida_actual <= 0:
 		return
 	vida_actual = mini(vida_actual + cantidad, vida_maxima)
 	actualizar_barra_vida()
@@ -301,6 +384,47 @@ func curar(cantidad: int) -> void:
 func actualizar_barra_vida() -> void:
 	barra_vida.max_value = vida_maxima
 	barra_vida.value = vida_actual
+
+
+# ==================================================
+# 11b. ENERGÍA (ENERGY)
+# ==================================================
+
+func procesar_energia(delta: float) -> void:
+	# Espera un momento tras gastar antes de empezar a regenerar.
+	if _tiempo_sin_gastar > 0.0:
+		_tiempo_sin_gastar = maxf(_tiempo_sin_gastar - delta, 0.0)
+	elif energia_actual < energia_maxima:
+		energia_actual = minf(energia_actual + regeneracion_energia * delta, energia_maxima)
+		actualizar_barra_energia()
+
+
+## Spends Energy if available. Returns false (and consumes nothing) when there
+## is not enough Energy, so the caller can abort the ability entirely.
+func usar_energia(costo: float) -> bool:
+	if energia_actual < costo:
+		avisar("Not enough Energy!")
+		return false
+	energia_actual = maxf(energia_actual - costo, 0.0)
+	_tiempo_sin_gastar = retraso_regeneracion
+	actualizar_barra_energia()
+	return true
+
+
+func recuperar_energia(cantidad: float) -> void:
+	energia_actual = minf(energia_actual + cantidad, energia_maxima)
+	actualizar_barra_energia()
+
+
+func actualizar_barra_energia() -> void:
+	if barra_energia == null:
+		return
+	barra_energia.max_value = energia_maxima
+	barra_energia.value = energia_actual
+
+
+func avisar(texto: String) -> void:
+	get_tree().call_group("hud", "show_message", texto)
 
 
 # ==================================================
@@ -382,13 +506,47 @@ func iniciar_ataque(numero: int) -> void:
 	sprite.play(animacion)
 
 
+func iniciar_stab() -> void:
+	var dir_mouse: Vector2 = obtener_direccion_hacia_mouse()
+	var animacion: String = obtener_vista_desde_vector(dir_mouse) + "Stab1"
+
+	if not sprite.sprite_frames.has_animation(animacion):
+		animacion = obtener_vista() + "Stab1"
+
+	if not sprite.sprite_frames.has_animation(animacion):
+		return
+
+	estocada_desbloqueada = false
+	estocada_pendiente = false
+	ataque_en_curso = true
+	ataque_actual = 0
+	combo_pendiente = false
+
+	cambiar_estado(States.STAB)
+	direccion_ataque = dir_mouse
+	hitbox.position = direccion_ataque * distancia_ataque
+	enemigos_golpeados.clear()
+
+	sprite.flip_h = direccion_ataque.x < 0.0
+	hitbox.set_deferred("monitoring", true)
+
+	iniciar_impulso_stab()
+	sprite.play(animacion)
+
+
 func iniciar_LargeStab(numero: int) -> void:
 	var dir_mouse = obtener_direccion_hacia_mouse()
 	var animacion: String = obtener_vista_desde_vector(dir_mouse) + "LargeStab" + str(numero)
-	haciendo_dash = true
-	tiempo_dash = 0.0
+
 	if not sprite.sprite_frames.has_animation(animacion):
 		return
+
+	# Habilidad especial (Q): cuesta Energía. Si no alcanza, no se activa nada.
+	if not usar_energia(costo_energia_q):
+		return
+
+	haciendo_dash = true
+	tiempo_dash = 0.0
 
 	ataque_actual = 0
 	ataque_en_curso = true
@@ -424,6 +582,10 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 func iniciar_spin() -> void:
 	if not sprite.sprite_frames.has_animation("SpinningAttack"):
+		return
+
+	# Habilidad especial (R): cuesta Energía. Si no alcanza, no se activa nada.
+	if not usar_energia(costo_energia_r):
 		return
 
 	ataque_en_curso = true
@@ -523,6 +685,10 @@ func actualizar_animacion(direccion: Vector2) -> void:
 
 
 func _al_terminar_animacion() -> void:
+	# El temporizador controla el dash; no lo terminamos por la animación.
+	if haciendo_dash or current_state == States.LARGESTAB:
+		return
+
 	if sprite.animation == "Roll":
 		# Si la tecla sigue presionada al terminar la animación de rodar, continuamos rodando
 		if Input.is_action_pressed("Roll"):
@@ -541,7 +707,6 @@ func _al_terminar_animacion() -> void:
 	ataque_en_curso = false
 	ataque_actual = 0
 	combo_pendiente = false
-	estocada_pendiente = false
 	estocada_desbloqueada = false
 
 	if player.velocity == Vector2.ZERO:

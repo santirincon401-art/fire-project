@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/pause_menu.gd" id="1_pause"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 90
+script = ExtResource("1_pause")
+
+[node name="Root" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Backdrop" type="ColorRect" parent="Root"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.03, 0.05, 0.72)
+mouse_filter = 2
+
+[node name="MainMenu" type="CenterContainer" parent="Root"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="VBoxContainer" parent="Root/MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Root/MainMenu/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 56
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Root/MainMenu/Menu"]
+layout_mode = 2
+text = "Continuar"
+
+[node name="SettingsButton" type="Button" parent="Root/MainMenu/Menu"]
+layout_mode = 2
+text = "Ajustes"
+
+[node name="Quit" type="Button" parent="Root/MainMenu/Menu"]
+layout_mode = 2
+text = "Salir del juego"
+
+[node name="SettingsMenu" type="CenterContainer" parent="Root"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="VBoxContainer" parent="Root/SettingsMenu"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Root/SettingsMenu/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 44
+text = "AJUSTES"
+horizontal_alignment = 1
+
+[node name="VolRow" type="HBoxContainer" parent="Root/SettingsMenu/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Root/SettingsMenu/Menu/VolRow"]
+layout_mode = 2
+text = "Volumen master"
+
+[node name="VolumeSlider" type="HSlider" parent="Root/SettingsMenu/Menu/VolRow"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="Fullscreen" type="CheckButton" parent="Root/SettingsMenu/Menu"]
+layout_mode = 2
+text = "Pantalla completa"
+
+[node name="ResRow" type="HBoxContainer" parent="Root/SettingsMenu/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Root/SettingsMenu/Menu/ResRow"]
+layout_mode = 2
+text = "Resolución"
+
+[node name="Resolution" type="OptionButton" parent="Root/SettingsMenu/Menu/ResRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Root/SettingsMenu/Menu"]
+layout_mode = 2
+text = "Volver"

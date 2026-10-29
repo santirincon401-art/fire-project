@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://puzzles/rune_device.gd" id="1_rune"]
+[ext_resource type="Texture2D" path="res://assets/generated/dungeon_rune.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rune"]
+radius = 30.0
+
+[node name="RuneDevice" type="Area2D" groups=["rune_devices"]]
+script = ExtResource("1_rune")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.62, 0.62, 0.68, 1)
+texture = ExtResource("2_tex")
+
+[node name="Glyph" type="Polygon2D" parent="."]
+position = Vector2(0, -8)
+color = Color(0.32, 0.34, 0.4, 1)
+polygon = PackedVector2Array(0, -11, 10, 8, -10, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rune")

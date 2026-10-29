@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://puzzles/boss_portal.gd" id="1_portal"]
+[ext_resource type="Texture2D" path="res://assets/generated/dungeon_rune.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_portal"]
+radius = 42.0
+
+[node name="BossPortal" type="Area2D" groups=["boss_portal"]]
+script = ExtResource("1_portal")
+
+[node name="Visual" type="Node2D" parent="."]
+visible = false
+
+[node name="Rune" type="Sprite2D" parent="Visual"]
+modulate = Color(0.75, 0.45, 1.4, 1)
+texture = ExtResource("2_tex")
+
+[node name="Ring1" type="Polygon2D" parent="Visual"]
+color = Color(0.6, 0.3, 1.2, 0.55)
+polygon = PackedVector2Array(0, -46, 12, -44, 28, -36, 38, -24, 44, 0, 38, 24, 28, 36, 12, 44, 0, 46, -12, 44, -28, 36, -38, 24, -44, 0, -38, -24, -28, -36, -12, -44)
+
+[node name="Ring2" type="Polygon2D" parent="Visual"]
+color = Color(0.85, 0.55, 1.6, 0.8)
+polygon = PackedVector2Array(0, -26, 18, -18, 26, 0, 18, 18, 0, 26, -18, 18, -26, 0, -18, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_portal")

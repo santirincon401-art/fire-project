@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://db6n8nua3adg4"]
+
+[ext_resource type="Script" uid="uid://bm76xu45ntaps" path="res://area_2d.gd" id="1_m0wgu"]
+[ext_resource type="Texture2D" uid="uid://wjmoiw3rafuw" path="res://enemys/mago/bullet.png" id="2_dyl0k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8w0r3"]
+radius = 7.071068
+
+[node name="Area2D" type="Area2D" unique_id=357494370]
+script = ExtResource("1_m0wgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2013130682]
+shape = SubResource("CircleShape2D_8w0r3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=443375842]
+texture = ExtResource("2_dyl0k")

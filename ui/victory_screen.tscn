@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/victory_screen.gd" id="1_victory"]
+
+[node name="VictoryScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_victory")
+
+[node name="Root" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Backdrop" type="ColorRect" parent="Root"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.02, 0.06, 0.85)
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="Root"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="VBoxContainer" parent="Root/Center"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="Root/Center/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 0.35, 1)
+theme_override_font_sizes/font_size = 72
+text = "VICTORY"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Root/Center/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.75, 0.85, 1)
+text = "The Guardian of the Gate has fallen."
+horizontal_alignment = 1
+
+[node name="Volver" type="Button" parent="Root/Center/Menu"]
+layout_mode = 2
+text = "Volver a la mazmorra"
+
+[node name="Salir" type="Button" parent="Root/Center/Menu"]
+layout_mode = 2
+text = "Salir del juego"

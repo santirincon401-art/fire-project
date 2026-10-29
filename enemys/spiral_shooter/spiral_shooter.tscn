@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://enemys/spiral_shooter/spiral_shooter.gd" id="1_shooter"]
+[ext_resource type="PackedScene" path="res://enemys/spiral_shooter/spiral_bullet.tscn" id="2_bullet"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shooter"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"cast",
+"speed": 12.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"death",
+"speed": 8.0
+}]
+
+[node name="SpiralShooter" type="CharacterBody2D" groups=["enemigos"]]
+script = ExtResource("1_shooter")
+bullet_scene = ExtResource("2_bullet")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="Polygon2D" parent="Visual"]
+color = Color(0.42, 0.16, 0.62, 1)
+polygon = PackedVector2Array(20, 0, 10, 17.32, -10, 17.32, -20, 0, -10, -17.32, 10, -17.32)
+
+[node name="Inner" type="Polygon2D" parent="Visual"]
+color = Color(0.18, 0.07, 0.28, 1)
+polygon = PackedVector2Array(10, 0, 5, 8.66, -5, 8.66, -10, 0, -5, -8.66, 5, -8.66)
+
+[node name="Core" type="Polygon2D" parent="Visual"]
+color = Color(1, 0.45, 0.2, 1)
+polygon = PackedVector2Array(5, 0, 3.54, 3.54, 0, 5, -3.54, 3.54, -5, 0, -3.54, -3.54, 0, -5, 3.54, -3.54)
+
+[node name="Muzzle" type="Polygon2D" parent="Visual"]
+color = Color(0.95, 0.78, 0.25, 1)
+polygon = PackedVector2Array(18, -4, 28, 0, 18, 4)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_shooter")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
