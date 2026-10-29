@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cykjkmm6ys0qf"
-path="res://.godot/imported/dungeon_rubble.png-eea6a5aa32fafc4d0104763b591db6e1.ctex"
+path="res://.godot/imported/dungeon_rubble.png-49cd08cafde2273ab15fd1f6eb31fd7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/dungeon_rubble.png"
-dest_files=["res://.godot/imported/dungeon_rubble.png-eea6a5aa32fafc4d0104763b591db6e1.ctex"]
+source_file="res://Assets/generated/dungeon_rubble.png"
+dest_files=["res://.godot/imported/dungeon_rubble.png-49cd08cafde2273ab15fd1f6eb31fd7e.ctex"]
 
 [params]
 

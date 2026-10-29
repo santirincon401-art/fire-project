@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ebnreu6hbhel"
-path="res://.godot/imported/enemy_chaser_idle.png-c8dc39a4b7f42e8b04c9951ae8565023.ctex"
+path="res://.godot/imported/enemy_chaser_idle.png-9cd55d9b8e37f6b29cc7cadc9afc0ed4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/enemy_chaser_idle.png"
-dest_files=["res://.godot/imported/enemy_chaser_idle.png-c8dc39a4b7f42e8b04c9951ae8565023.ctex"]
+source_file="res://Assets/generated/enemy_chaser_idle.png"
+dest_files=["res://.godot/imported/enemy_chaser_idle.png-9cd55d9b8e37f6b29cc7cadc9afc0ed4.ctex"]
 
 [params]
 

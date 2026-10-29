@@ -11,19 +11,22 @@ config_version=5
 [application]
 
 config/name="fire project"
-run/main_scene="uid://dylws3j5ocm6t"
+run/main_scene="uid://ghv54d212ji6"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PlayerAbilities="*res://abilities/player_abilities.gd"
+GlobalVariables="*uid://cedtgk1tih7sd"
+Sonidos="*uid://cw1du6tiuj8db"
 
 [display]
 
 window/size/viewport_width=1152.0
 window/size/viewport_height=648.0
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://cxpp6xa0y286h"
 
 [global_group]
 

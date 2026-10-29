@@ -38,7 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://rdmo2iqb6aet" path="res://Candle/sprites/CandleThree-quarterviewLargeStab1.png" id="29_k6dul"]
 [ext_resource type="Texture2D" uid="uid://8752qnv3rcyq" path="res://Candle/sprites/CandleThree-quarter viewLargeStab2.png" id="30_y1333"]
 [ext_resource type="Texture2D" uid="uid://c7rt1kttjsymj" path="res://Candle/sprites/CandleThree-quarterviewStab1.png" id="31_y7stf"]
-[ext_resource type="Script" path="res://Candle/hud.gd" id="32_hudgd"]
+[ext_resource type="Script" uid="uid://gfpob3guexlx" path="res://Candle/hud.gd" id="32_hudgd"]
 [ext_resource type="PackedScene" path="res://items/spectral_swords/spectral_swords.tscn" id="33_swords"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qdn45"]
@@ -1380,7 +1380,7 @@ animation = &"Three-quarterViewIdle"
 [node name="controlador" type="Node2D" parent="." unique_id=1169680575]
 script = ExtResource("11_rucp0")
 
-[node name="SpectralSwords" parent="." instance=ExtResource("33_swords")]
+[node name="SpectralSwords" parent="." unique_id=1204854900 instance=ExtResource("33_swords")]
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=961106113]
 

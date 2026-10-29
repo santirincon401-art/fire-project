@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cbuiou6gisenc"]
 
 [ext_resource type="Script" uid="uid://chxrmr6uehk3s" path="res://enemys/swarmling/swarmling.gd" id="1_swarm"]
-[ext_resource type="Texture2D" path="res://assets/generated/enemy_swarmling_attack.png" id="2_htjqn"]
-[ext_resource type="Texture2D" uid="uid://2uw7wf6hbgx4" path="res://assets/generated/enemy_swarmling_death.png" id="3_62ao4"]
-[ext_resource type="Texture2D" uid="uid://ddp0qh6jsm2ae" path="res://assets/generated/enemy_swarmling_idle.png" id="4_lfxcy"]
-[ext_resource type="Texture2D" uid="uid://cugw2iaekgp2a" path="res://assets/generated/enemy_swarmling_walk.png" id="5_tmbag"]
+[ext_resource type="Texture2D" uid="uid://d38capkmyr8wq" path="res://Assets/generated/enemy_swarmling_attack.png" id="2_htjqn"]
+[ext_resource type="Texture2D" uid="uid://2uw7wf6hbgx4" path="res://Assets/generated/enemy_swarmling_death.png" id="3_62ao4"]
+[ext_resource type="Texture2D" uid="uid://ddp0qh6jsm2ae" path="res://Assets/generated/enemy_swarmling_idle.png" id="4_lfxcy"]
+[ext_resource type="Texture2D" uid="uid://cugw2iaekgp2a" path="res://Assets/generated/enemy_swarmling_walk.png" id="5_tmbag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eb1nd"]
 atlas = ExtResource("2_htjqn")

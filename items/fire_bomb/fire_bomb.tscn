@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://items/fire_bomb/fire_bomb.gd" id="1_fb"]
-[ext_resource type="Texture2D" path="res://assets/generated/icon_firebomb.png" id="2_bomb"]
-[ext_resource type="Texture2D" path="res://assets/generated/fx_explosion.png" id="3_fx"]
+[ext_resource type="Script" uid="uid://bdq0pq5wgx5g1" path="res://items/fire_bomb/fire_bomb.gd" id="1_fb"]
+[ext_resource type="Texture2D" uid="uid://cd4q54bck5lxo" path="res://Assets/generated/icon_firebomb.png" id="2_bomb"]
+[ext_resource type="Texture2D" uid="uid://bjkeqpy65hq3n" path="res://Assets/generated/fx_explosion.png" id="3_fx"]
 
 [node name="FireBomb" type="Node2D"]
 process_mode = 3

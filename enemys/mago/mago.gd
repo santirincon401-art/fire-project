@@ -108,7 +108,7 @@ func _telegraph() -> void:
 func disparar() -> void:
 	if muerto or proyectil_escena == null or not is_instance_valid(jugador):
 		return
-
+	Sonidos.play("disparo_mago")
 	_play("attack2")
 
 	var direccion: Vector2 = global_position.direction_to(jugador.global_position)

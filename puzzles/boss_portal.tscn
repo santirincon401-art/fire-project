@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://puzzles/boss_portal.gd" id="1_portal"]
-[ext_resource type="Texture2D" path="res://assets/generated/dungeon_rune.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://fwjxifw0x746" path="res://puzzles/boss_portal.gd" id="1_portal"]
+[ext_resource type="Texture2D" uid="uid://ggolxlmqpcse" path="res://Assets/generated/dungeon_rune.png" id="2_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_portal"]
 radius = 42.0

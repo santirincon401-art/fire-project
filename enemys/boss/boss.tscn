@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://wn64ijmn2byy"]
 
-[ext_resource type="Script" path="res://enemys/boss/boss.gd" id="1_boss"]
+[ext_resource type="Script" uid="uid://cnlucr2s64rjj" path="res://enemys/boss/boss.gd" id="1_boss"]
 [ext_resource type="PackedScene" path="res://enemys/boss/boss_bullet.tscn" id="2_bullet"]
-[ext_resource type="Texture2D" uid="uid://dasa16grm5adm" path="res://assets/generated/boss_cast.png" id="3_ye6w6"]
-[ext_resource type="Texture2D" uid="uid://eslf6ymfm1nx" path="res://assets/generated/boss_death.png" id="4_0haqd"]
-[ext_resource type="Texture2D" uid="uid://k0wjqy1d3l3d" path="res://assets/generated/boss_idle.png" id="5_g3br0"]
-[ext_resource type="Texture2D" uid="uid://b06rl64g3sya0" path="res://assets/generated/boss_idle_anim.png" id="6_ss8jm"]
+[ext_resource type="Texture2D" uid="uid://dasa16grm5adm" path="res://Assets/generated/boss_cast.png" id="3_ye6w6"]
+[ext_resource type="Texture2D" uid="uid://eslf6ymfm1nx" path="res://Assets/generated/boss_death.png" id="4_0haqd"]
+[ext_resource type="Texture2D" uid="uid://k0wjqy1d3l3d" path="res://Assets/generated/boss_idle.png" id="5_g3br0"]
+[ext_resource type="Texture2D" uid="uid://b06rl64g3sya0" path="res://Assets/generated/boss_idle_anim.png" id="6_ss8jm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_au460"]
 atlas = ExtResource("3_ye6w6")

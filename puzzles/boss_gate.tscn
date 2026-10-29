@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://puzzles/puzzle_door.gd" id="1_door"]
-[ext_resource type="Texture2D" path="res://assets/generated/dungeon_door.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://j8kd73sbrgkq" path="res://puzzles/puzzle_door.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://bps0watn3xhur" path="res://Assets/generated/dungeon_door.png" id="2_tex"]
 [ext_resource type="PackedScene" path="res://puzzles/boss_portal.tscn" id="3_portal"]
 
 [sub_resource type="RectangleShape2D" id="ShapeL"]

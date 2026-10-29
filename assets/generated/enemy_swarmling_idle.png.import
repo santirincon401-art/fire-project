@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddp0qh6jsm2ae"
-path="res://.godot/imported/enemy_swarmling_idle.png-d743fa989afdf3d07cb7878d714d18d1.ctex"
+path="res://.godot/imported/enemy_swarmling_idle.png-e31e806e3abe9357cd99860a3e9faf75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/enemy_swarmling_idle.png"
-dest_files=["res://.godot/imported/enemy_swarmling_idle.png-d743fa989afdf3d07cb7878d714d18d1.ctex"]
+source_file="res://Assets/generated/enemy_swarmling_idle.png"
+dest_files=["res://.godot/imported/enemy_swarmling_idle.png-e31e806e3abe9357cd99860a3e9faf75.ctex"]
 
 [params]
 

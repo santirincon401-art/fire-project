@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bi4drxkcd5sce"
-path="res://.godot/imported/enemy_chaser_walk.png-ca65b9cba61639b6a7f8eb87bb16693a.ctex"
+path="res://.godot/imported/enemy_chaser_walk.png-5ecd43f4f78469ad721c56a18007fbe0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/enemy_chaser_walk.png"
-dest_files=["res://.godot/imported/enemy_chaser_walk.png-ca65b9cba61639b6a7f8eb87bb16693a.ctex"]
+source_file="res://Assets/generated/enemy_chaser_walk.png"
+dest_files=["res://.godot/imported/enemy_chaser_walk.png-5ecd43f4f78469ad721c56a18007fbe0.ctex"]
 
 [params]
 

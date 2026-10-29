@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://crl6ni3dg0dud"]
 
 [ext_resource type="Script" uid="uid://ci6lsrpr2oadc" path="res://enemys/chaser/chaser.gd" id="1_chaser"]
-[ext_resource type="Texture2D" uid="uid://c5uexipypg51f" path="res://assets/generated/enemy_chaser_attack.png" id="2_b8bd8"]
-[ext_resource type="Texture2D" uid="uid://d1iac0ntdgxld" path="res://assets/generated/enemy_chaser_death.png" id="3_ylypy"]
-[ext_resource type="Texture2D" uid="uid://ebnreu6hbhel" path="res://assets/generated/enemy_chaser_idle.png" id="4_a411p"]
-[ext_resource type="Texture2D" uid="uid://bi4drxkcd5sce" path="res://assets/generated/enemy_chaser_walk.png" id="5_fkptc"]
+[ext_resource type="Texture2D" uid="uid://c5uexipypg51f" path="res://Assets/generated/enemy_chaser_attack.png" id="2_b8bd8"]
+[ext_resource type="Texture2D" uid="uid://d1iac0ntdgxld" path="res://Assets/generated/enemy_chaser_death.png" id="3_ylypy"]
+[ext_resource type="Texture2D" uid="uid://ebnreu6hbhel" path="res://Assets/generated/enemy_chaser_idle.png" id="4_a411p"]
+[ext_resource type="Texture2D" uid="uid://bi4drxkcd5sce" path="res://Assets/generated/enemy_chaser_walk.png" id="5_fkptc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xtd4e"]
 atlas = ExtResource("2_b8bd8")

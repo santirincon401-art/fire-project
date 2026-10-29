@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cay48bv02aiw5"
-path="res://.godot/imported/enemy_brute_walk.png-df1159636080635c35c506bb56976b46.ctex"
+path="res://.godot/imported/enemy_brute_walk.png-6625f986a7e12e60be2e9df1fadd407b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/enemy_brute_walk.png"
-dest_files=["res://.godot/imported/enemy_brute_walk.png-df1159636080635c35c506bb56976b46.ctex"]
+source_file="res://Assets/generated/enemy_brute_walk.png"
+dest_files=["res://.godot/imported/enemy_brute_walk.png-6625f986a7e12e60be2e9df1fadd407b.ctex"]
 
 [params]
 

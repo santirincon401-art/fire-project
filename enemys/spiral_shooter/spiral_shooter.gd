@@ -95,12 +95,12 @@ func _process_firing(delta: float) -> void:
 			_pause_timer = 0.0
 			_shots_in_burst = 0
 		return
-
+	
 	_shot_timer += delta
 	if _shot_timer < shoot_interval:
 		return
 	_shot_timer = 0.0
-
+	Sonidos.play("disparo_mago")
 	_fire_spiral_step()
 	_shots_in_burst += 1
 	_angle += deg_to_rad(spiral_step_degrees)

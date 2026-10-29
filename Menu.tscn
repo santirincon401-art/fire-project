@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://ghv54d212ji6"]
+
+[ext_resource type="Script" uid="uid://ceavsyeob2umh" path="res://menu.gd" id="1_uubjt"]
+
+[node name="Menu" type="CanvasLayer" unique_id=921352836]
+process_mode = 3
+layer = 90
+script = ExtResource("1_uubjt")
+
+[node name="Root" type="Control" parent="." unique_id=1860686031]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="Root" unique_id=2096325077]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.03, 0.03, 0.05, 0.72)
+
+[node name="MainMenu" type="CenterContainer" parent="Root" unique_id=348329856]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="VBoxContainer" parent="Root/MainMenu" unique_id=1786455046]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Root/MainMenu/Menu" unique_id=679003124]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 56
+text = "THE BURNING VESSEL"
+horizontal_alignment = 1
+
+[node name="Jugar" type="Button" parent="Root/MainMenu/Menu" unique_id=340511438]
+layout_mode = 2
+text = "Jugar"
+
+[node name="SettingsButton" type="Button" parent="Root/MainMenu/Menu" unique_id=1216465987]
+layout_mode = 2
+text = "Ajustes"
+
+[node name="Quit" type="Button" parent="Root/MainMenu/Menu" unique_id=2129121292]
+layout_mode = 2
+text = "Salir del juego"
+
+[node name="SettingsMenu" type="CenterContainer" parent="Root" unique_id=1173775372]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="VBoxContainer" parent="Root/SettingsMenu" unique_id=1117608643]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Root/SettingsMenu/Menu" unique_id=844414471]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 44
+text = "AJUSTES"
+horizontal_alignment = 1
+
+[node name="VolRow" type="HBoxContainer" parent="Root/SettingsMenu/Menu" unique_id=834559339]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Root/SettingsMenu/Menu/VolRow" unique_id=864433182]
+layout_mode = 2
+text = "Volumen master"
+
+[node name="VolumeSlider" type="HSlider" parent="Root/SettingsMenu/Menu/VolRow" unique_id=1006526430]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="Fullscreen" type="CheckButton" parent="Root/SettingsMenu/Menu" unique_id=1751659]
+layout_mode = 2
+text = "Pantalla completa"
+
+[node name="ResRow" type="HBoxContainer" parent="Root/SettingsMenu/Menu" unique_id=1435289710]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Root/SettingsMenu/Menu/ResRow" unique_id=1294732391]
+layout_mode = 2
+text = "Resolución"
+
+[node name="Resolution" type="OptionButton" parent="Root/SettingsMenu/Menu/ResRow" unique_id=219961147]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Root/SettingsMenu/Menu" unique_id=2030368377]
+layout_mode = 2
+text = "Volver"

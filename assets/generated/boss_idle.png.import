@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k0wjqy1d3l3d"
-path="res://.godot/imported/boss_idle.png-b8eef2f64edc4c75357cd0abeab2a80a.ctex"
+path="res://.godot/imported/boss_idle.png-36d8c7c6c9788819c61adacf4d3bf0e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/boss_idle.png"
-dest_files=["res://.godot/imported/boss_idle.png-b8eef2f64edc4c75357cd0abeab2a80a.ctex"]
+source_file="res://Assets/generated/boss_idle.png"
+dest_files=["res://.godot/imported/boss_idle.png-36d8c7c6c9788819c61adacf4d3bf0e0.ctex"]
 
 [params]
 

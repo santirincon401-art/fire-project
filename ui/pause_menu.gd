@@ -71,6 +71,7 @@ func _toggle() -> void:
 
 
 func _pause_game() -> void:
+	Sonidos.play("seleccion")
 	_abierto = true
 	if _root != null:
 		_root.visible = true
@@ -81,6 +82,7 @@ func _pause_game() -> void:
 
 
 func _resume_game() -> void:
+	Sonidos.play("seleccion")
 	_abierto = false
 	if _root != null:
 		_root.visible = false
@@ -104,6 +106,7 @@ func _show_settings() -> void:
 
 
 func _on_quit() -> void:
+	Sonidos.play("seleccion")
 	get_tree().quit()
 
 
@@ -119,6 +122,7 @@ func _death_showing() -> bool:
 # ==================================================
 
 func _inicializar_ajustes() -> void:
+	Sonidos.play("seleccion")
 	if _volume != null:
 		_volume.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(0)))
 	if _fullscreen != null:

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ggolxlmqpcse"
-path="res://.godot/imported/dungeon_rune.png-cc3f41ade666d81a52e531297624bc27.ctex"
+path="res://.godot/imported/dungeon_rune.png-9cf7b265e3f1649010c9c5a54907caa0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/dungeon_rune.png"
-dest_files=["res://.godot/imported/dungeon_rune.png-cc3f41ade666d81a52e531297624bc27.ctex"]
+source_file="res://Assets/generated/dungeon_rune.png"
+dest_files=["res://.godot/imported/dungeon_rune.png-9cf7b265e3f1649010c9c5a54907caa0.ctex"]
 
 [params]
 

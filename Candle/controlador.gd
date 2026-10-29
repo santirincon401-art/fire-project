@@ -62,7 +62,7 @@ var direccion_impulso_stab: Vector2 = Vector2.ZERO
 var haciendo_rodar: bool = false
 var velocidad_rodar: float = 650.0
 var inercia_rodar: Vector2 = Vector2.ZERO
-@export var friccion_rodar: float = 7.0
+@export var friccion_rodar: float = 1
 
 var vida_actual: int
 var invulnerable: bool = false
@@ -128,6 +128,35 @@ var hitbox_spin_activa: bool = false
 # ==================================================
 
 func _ready() -> void:
+	player.add_to_group("jugador")
+
+	match GlobalVariables.personaje_elegido:
+		0: # CANDLE (Base)
+			vida_maxima = 100
+			danio = 1
+			velocidad = 300.0
+			energia_maxima = 100.0
+			friccion_rodar = 1.5
+			sprite.modulate = Color.WHITE
+		1: # ANGRYLE (Tanque / Más daño y vida, más lento, rojo)
+			vida_maxima = 150
+			danio = 2
+			velocidad = 220.0
+			energia_maxima = 60.0
+			friccion_rodar = 2.5
+			sprite.modulate = Color(1.3, 0.4, 0.4) # Tinte Rojo
+		2: # SPEEDLE (Veloz / Más rápido y energía, azul)
+			vida_maxima = 80
+			danio = 1
+			velocidad = 390.0
+			energia_maxima = 160.0
+			friccion_rodar = 1.0
+			sprite.modulate = Color(0.4, 0.7, 2.0) # Tinte Azul
+
+	vida_actual = vida_maxima
+	energia_actual = clampf(energia_inicial, 0.0, energia_maxima)
+	actualizar_barra_vida()
+	actualizar_barra_energia()
 	player.add_to_group("jugador")
 	vida_actual = vida_maxima
 	energia_actual = clampf(energia_inicial, 0.0, energia_maxima)
@@ -254,12 +283,11 @@ func procesar_ataque() -> void:
 		
 
 # ==================================================
-# 9. MECÁNICA DE RODAR SOSTENIDO (DERRAPE CONTINUO)
+# 9. MECÁNICA DE DESLIZAMIENTO / RODAR SEGUIDITO
 # ==================================================
 
 func iniciar_rodar(direccion_input: Vector2) -> void:
 	var animacion: String = "Roll"
-	
 	if not sprite.sprite_frames.has_animation(animacion):
 		animacion = obtener_vista() + "Walk"
 
@@ -267,10 +295,13 @@ func iniciar_rodar(direccion_input: Vector2) -> void:
 	haciendo_rodar = true
 	
 	var dir_rodar = direccion_input if direccion_input != Vector2.ZERO else ultima_direccion
-	var boost_frenesi = 1.3 if modo_frenesi else 1.0
+	if dir_rodar == Vector2.ZERO:
+		dir_rodar = Vector2.DOWN
+		
+	var boost_frenesi = 1.2 if modo_frenesi else 1.0
 	inercia_rodar = dir_rodar.normalized() * velocidad_rodar * boost_frenesi
 	
-	activar_invulnerabilidad()
+	activar_invulnerabilidad_corta(0.2)
 	sprite.play(animacion)
 
 
@@ -278,24 +309,20 @@ func procesar_rodar(delta: float) -> void:
 	player.velocity = inercia_rodar
 	player.move_and_slide()
 	
-	# Fricción del derrape
-	inercia_rodar = inercia_rodar.move_toward(Vector2.ZERO, friccion_rodar * 120.0 * delta)
+	# Fricción muy baja (1.5) para que derrape un montón antes de frenar
+	inercia_rodar = inercia_rodar.move_toward(Vector2.ZERO, friccion_rodar * 30.0 * delta)
 
-	# Si soltamos la tecla y la inercia baja, terminamos el rollo
-	if not Input.is_action_pressed("Roll") and inercia_rodar.length() < 100.0:
-		haciendo_rodar = false
-		player.velocity = Vector2.ZERO
-		cambiar_estado(States.IDLE)
-		return
+	# Si mantienes Shift y cambias de dirección, hace un derrape suave hacia el nuevo lado en vez de cortarse de golpe
+	if Input.is_action_pressed("Roll"):
+		var dir_input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+		if dir_input != Vector2.ZERO:
+			ultima_direccion = dir_input
+			# Mezcla la inercia vieja con la nueva dirección para lograr ese "resto de derrape" fluido
+			var nueva_meta = dir_input.normalized() * velocidad_rodar
+			inercia_rodar = inercia_rodar.slerp(nueva_meta, delta * 4.0)
+			sprite.flip_h = ultima_direccion.x < 0.0
 
-	# Si sigue presionada la tecla y nos estamos deteniendo, podemos mantener el impulso si hay input de movimiento
-	if inercia_rodar.length() < 20.0:
-		if Input.is_action_pressed("Roll"):
-			var dir_input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-			if dir_input != Vector2.ZERO:
-				iniciar_rodar(dir_input)
-				return
-		
+	if not Input.is_action_pressed("Roll") or inercia_rodar.length() < 30.0:
 		haciendo_rodar = false
 		player.velocity = Vector2.ZERO
 		cambiar_estado(States.IDLE)
@@ -362,6 +389,7 @@ func cambiar_estado(nuevo_estado: States) -> void:
 
 
 func recibir_danio(cantidad: int) -> void:
+	Sonidos.play("Hit_ene")
 	if _muerto or vida_actual <= 0:
 		return
 	vida_actual = clampi(vida_actual - cantidad, 0, vida_maxima)
@@ -371,6 +399,7 @@ func recibir_danio(cantidad: int) -> void:
 	if vida_actual == 0:
 		_muerto = true
 		print("¡Candle ha muerto!")
+		Sonidos.play("Game_over")
 		murio.emit()
 
 
@@ -432,6 +461,7 @@ func avisar(texto: String) -> void:
 # ==================================================
 
 func registrar_golpe_exitoso(enemigo: Node2D) -> void:
+	Sonidos.play("Hit_jugador")
 	contador_combo += 1
 	puntos_totales += contador_combo * 150
 	tiempo_reset_combo = 0.0
@@ -718,7 +748,7 @@ func _al_terminar_animacion() -> void:
 
 
 # ==================================================
-# 16. HURTBOX E INVULNERABILIDAD
+# 16. HURTBOX E INVULNERABILIDAD (DAÑO)
 # ==================================================
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
@@ -730,16 +760,22 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		return
 
 	recibir_danio(body.danio)
-	activar_invulnerabilidad()
+	activar_invulnerabilidad(0.5)
 
 	var tween = create_tween()
 	sprite.modulate = Color.CRIMSON
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.5)
 
 
-func activar_invulnerabilidad() -> void:
+func activar_invulnerabilidad(duracion: float = 0.5) -> void:
 	if invulnerable:
 		return
 	invulnerable = true
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(duracion).timeout
+	invulnerable = false
+
+
+func activar_invulnerabilidad_corta(duracion: float = 0.2) -> void:
+	invulnerable = true
+	await get_tree().create_timer(duracion).timeout
 	invulnerable = false

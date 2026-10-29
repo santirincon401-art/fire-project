@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://dluss6fud21gx"]
+
+[ext_resource type="Script" uid="uid://dn5506g0yjcms" path="res://selector_personajes.gd" id="1_m1r2s"]
+[ext_resource type="Texture2D" uid="uid://tu312kis0nqk" path="res://scenes/Captura de pantalla 2026-10-28 224519.png" id="2_t80b1"]
+[ext_resource type="Texture2D" uid="uid://c8ayqycmdbf8m" path="res://scenes/Captura de pantalla 2026-10-28 223958.png" id="3_84uef"]
+[ext_resource type="Texture2D" uid="uid://dxwvtxgjw2n30" path="res://scenes/Captura de pantalla 2026-10-28 223925.png" id="4_ve82e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6smh"]
+font_size = 40
+
+[node name="SelectorPersonajes" type="Control" unique_id=776263162]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1155.0
+offset_bottom = 653.0
+script = ExtResource("1_m1r2s")
+
+[node name="Panel" type="Panel" parent="." unique_id=1870449397]
+layout_mode = 0
+offset_right = 1158.0
+offset_bottom = 648.0
+
+[node name="Title" type="Label" parent="Panel" unique_id=616233396]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 32.0
+offset_right = 952.0
+offset_bottom = 109.0
+theme_override_colors/font_color = Color(0.92, 0.78, 0.4, 1)
+theme_override_font_sizes/font_size = 56
+text = "CHOOSE YOUR CHARACTER"
+horizontal_alignment = 1
+
+[node name="Candle" type="Panel" parent="Panel" unique_id=1591631057]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Panel/Candle" unique_id=172939204]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 140.0
+offset_right = 385.0
+offset_bottom = 206.0
+text = "CANDLE"
+label_settings = SubResource("LabelSettings_c6smh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Botoncandle" type="Button" parent="Panel/Candle" unique_id=1336300322]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 503.0
+offset_right = 399.0
+offset_bottom = 577.0
+text = "SELECCIONAR"
+
+[node name="CapturaDePantalla20261028224519" type="Sprite2D" parent="Panel/Candle" unique_id=833418624]
+position = Vector2(251.00009, 350)
+scale = Vector2(1.8844538, 1.8731343)
+texture = ExtResource("2_t80b1")
+
+[node name="Angryle" type="Panel" parent="Panel" unique_id=1746179085]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button2" type="Button" parent="Panel/Angryle" unique_id=1184193835]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 503.0
+offset_right = 757.0
+offset_bottom = 577.0
+text = "SELECCIONAR"
+
+[node name="Label2" type="Label" parent="Panel/Angryle" unique_id=84450382]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 133.0
+offset_right = 743.0
+offset_bottom = 199.0
+text = "ANGRYLE"
+label_settings = SubResource("LabelSettings_c6smh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CapturaDePantalla20261028223958" type="Sprite2D" parent="Panel/Angryle" unique_id=1765896809]
+position = Vector2(609, 346)
+scale = Vector2(2.0132744, 2.0950413)
+texture = ExtResource("3_84uef")
+
+[node name="Speedle" type="Panel" parent="Panel" unique_id=977883946]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button3" type="Button" parent="Panel/Speedle" unique_id=1368597394]
+layout_mode = 0
+offset_left = 805.0
+offset_top = 503.0
+offset_right = 1091.0
+offset_bottom = 577.0
+text = "SELECCIONAR"
+
+[node name="Label3" type="Label" parent="Panel/Speedle" unique_id=942825653]
+layout_mode = 0
+offset_left = 811.0
+offset_top = 129.0
+offset_right = 1080.0
+offset_bottom = 195.0
+text = "SPEEDLE"
+label_settings = SubResource("LabelSettings_c6smh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CapturaDePantalla20261028223925" type="Sprite2D" parent="Panel/Speedle" unique_id=1949267503]
+position = Vector2(949, 347.00003)
+scale = Vector2(2.234693, 2.2407405)
+texture = ExtResource("4_ve82e")

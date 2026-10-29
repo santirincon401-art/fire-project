@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6fh0pf5vf3xl"
-path="res://.godot/imported/dungeon_chains.png-5480a087a1c50f6bdd5ffef3f07c6039.ctex"
+path="res://.godot/imported/dungeon_chains.png-7d1586414c540a746f5aed82f7b93352.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/dungeon_chains.png"
-dest_files=["res://.godot/imported/dungeon_chains.png-5480a087a1c50f6bdd5ffef3f07c6039.ctex"]
+source_file="res://Assets/generated/dungeon_chains.png"
+dest_files=["res://.godot/imported/dungeon_chains.png-7d1586414c540a746f5aed82f7b93352.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dasa16grm5adm"
-path="res://.godot/imported/boss_cast.png-94c157091561d7f41426051064a16e6b.ctex"
+path="res://.godot/imported/boss_cast.png-2851eccc63423c5b3b56a229df262007.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/boss_cast.png"
-dest_files=["res://.godot/imported/boss_cast.png-94c157091561d7f41426051064a16e6b.ctex"]
+source_file="res://Assets/generated/boss_cast.png"
+dest_files=["res://.godot/imported/boss_cast.png-2851eccc63423c5b3b56a229df262007.ctex"]
 
 [params]
 

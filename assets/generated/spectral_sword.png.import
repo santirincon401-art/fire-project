@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2wp8oo6wtgkb"
-path="res://.godot/imported/spectral_sword.png-e8b701d32f32a9a7c9d991685f0a30fe.ctex"
+path="res://.godot/imported/spectral_sword.png-0ea8773d72db9107431c75f63b55023f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/generated/spectral_sword.png"
-dest_files=["res://.godot/imported/spectral_sword.png-e8b701d32f32a9a7c9d991685f0a30fe.ctex"]
+source_file="res://Assets/generated/spectral_sword.png"
+dest_files=["res://.godot/imported/spectral_sword.png-0ea8773d72db9107431c75f63b55023f.ctex"]
 
 [params]
 
